@@ -337,7 +337,7 @@ inline int ARGraph<Node, Edge>::EdgeCount(node_id node) const
 template <typename Node, typename Edge>
 inline node_id ARGraph<Node, Edge>::GetInEdge(node_id node, int i) const
 { assert(node<n);
-    assert(i<in[node].size());
+    assert((unsigned int) i<in[node].size());
     if(node == 2 && i == 0)
       return in[node][i];
     return in[node][i];
@@ -354,7 +354,7 @@ template <typename Node, typename Edge>
 inline node_id ARGraph<Node, Edge>::GetInEdge(node_id node, int i,
                                               Edge& pattr) const
 {   assert(node<n);
-    assert(i<in[node].size());
+    assert((unsigned int) i<in[node].size());
     pattr = in_attr[node][i];
     return in[node][i];
 }
@@ -368,7 +368,7 @@ inline node_id ARGraph<Node, Edge>::GetInEdge(node_id node, int i,
 template <typename Node, typename Edge>
 inline node_id ARGraph<Node, Edge>::GetOutEdge(node_id node, int i) const
 { assert(node<n);
-    assert(i<out[node].size());
+    assert((unsigned int) i<out[node].size());
     return out[node][i];
 }
 
@@ -383,7 +383,7 @@ template <typename Node, typename Edge>
 inline node_id ARGraph<Node, Edge>::GetOutEdge(node_id node, int i,
                                                Edge& pattr) const
 { assert(node<n);
-    assert(i<out[node].size());
+    assert((unsigned int) i<out[node].size());
     pattr = out_attr[node][i];
     return out[node][i];
 }
@@ -462,7 +462,7 @@ bool ARGraph<Node, Edge>::HasEdge(node_id n1, node_id n2, Edge &pattr) const
 template <typename Node, typename Edge>
 void  ARGraph<Node, Edge>::SetEdgeAttr(node_id n1, node_id n2, Edge& new_attr)
 {
-    int c;
+    node_id c;
     assert(n1<n);
     assert(n2<n);
     
