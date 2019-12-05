@@ -63,7 +63,7 @@ bool visitor(int n, node_id n1[], node_id n2[], void* state, void *usr_data)
     if(n1[k] != NULL_NODE )
       std::cout<<n2[n1[k]]<<","<<n1[k]<<":";
   }
-  std:cout<<"\n";
+  std::cout<<"\n";
   #endif
 
   // Count solutions and take time of first solution
@@ -145,6 +145,8 @@ int main(int argc, char** argv)
       {
         std::cout<<sorted[i]<<" ";
       }
+      std::cout<<std::endl;
+      std::cout<<"elapse_ticks in sort: "<<(clock() - ticksFirst)<<std::endl;
     }
     #endif
 
