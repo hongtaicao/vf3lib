@@ -33,8 +33,8 @@ const true=1
 typedef unsigned char byte;
 #endif
 
-typedef unsigned short node_id; /**<Type for the id of the nodes in the graph */
-const node_id NULL_NODE=0xFFFF;	/**<Null node value */
+typedef unsigned int node_id; /**<Type for the id of the nodes in the graph */
+const node_id NULL_NODE=0xFFFFFFFF;	/**<Null node value */
 
 /**
  * @class Empty
