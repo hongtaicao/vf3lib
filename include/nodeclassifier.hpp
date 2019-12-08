@@ -37,7 +37,7 @@ public:
   {
     Node attr;
     
-    int count = g1->NodeCount();
+    nneg_int count = g1->NodeCount();
     vector<int> classes(count);
     
     for (node_id i = 0; i < count; i++)
@@ -89,7 +89,7 @@ void NodeClassifier<Node,Edge>::GenerateClasses(ARGraph<Node,Edge>* g){
   int classes_count = 0;
   node_id n;
   Node attr;
-  int count = g->NodeCount();
+  nneg_int count = g->NodeCount();
   
   for(n = 0; n < count; n++)
   {

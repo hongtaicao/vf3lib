@@ -33,6 +33,7 @@ const true=1
 typedef unsigned char byte;
 #endif
 
+typedef unsigned int nneg_int;
 typedef unsigned int node_id; /**<Type for the id of the nodes in the graph */
 const node_id NULL_NODE=0xFFFFFFFF;	/**<Null node value */
 
@@ -86,7 +87,7 @@ class ARGLoader
     * @brief Counts the number of loaded nodes
     * @returns Number of loaded nodes.
     */
-    virtual int NodeCount() = 0;
+    virtual nneg_int NodeCount() = 0;
     /**
     * @brief Returns the attribute of a given node.
     * @param [in] node Node id.
@@ -98,7 +99,7 @@ class ARGLoader
     * @param [in] node Node id.
     * @returns Number of out going edges.
     */
-    virtual int OutEdgeCount(node_id node) = 0;
+    virtual nneg_int OutEdgeCount(node_id node) = 0;
     /**
     * @brief Returns the End node of the i-th edge out going from a given node.
     * @param [in] node Node id.
@@ -150,10 +151,10 @@ private:
     typedef vector<Edge> EdgeAttrVector;
     typedef vector<Node> NodeAttrVector;
     
-    int n;                               /**<number of nodes  */
-    int max_deg_in;                      /**<max in degree over all the nodes*/
-    int max_deg_out;                     /**<max out degree over all the nodes */
-    int max_degree;                      /**<max degree over all the nodes */
+    nneg_int n;                               /**<number of nodes  */
+    nneg_int max_deg_in;                      /**<max in degree over all the nodes*/
+    nneg_int max_deg_out;                     /**<max out degree over all the nodes */
+    nneg_int max_degree;                      /**<max degree over all the nodes */
     NodeAttrVector attr;                 /**<node attributes  */
     vector<EdgeAttrVector> in_attr;      /**<Edge attributes for 'in' edges */
     vector<EdgeAttrVector> out_attr;     /**<Edge attributes for 'out' edges */
@@ -165,7 +166,7 @@ private:
 public:
     ARGraph(ARGLoader<Node, Edge> *loader);
     
-    int NodeCount() const;
+    nneg_int NodeCount() const;
     
     Node& GetNodeAttr(node_id i);
     void SetNodeAttr(node_id i, Node &attr);
@@ -189,17 +190,17 @@ public:
 	* @brief Maximum incoming degree in the graph
 	* @returns Maximum in degree
 	*/
-    int InMaxDegree() const { return max_deg_in; }
+    nneg_int InMaxDegree() const { return max_deg_in; }
     /**
 	* @brief Maximum out going degree in the graph
 	* @returns Maximum out degree
 	*/
-    int OutMaxDegree() const { return max_deg_out; }
+    nneg_int OutMaxDegree() const { return max_deg_out; }
     /**
 	* @brief Maximum degree in the graph
 	* @returns Maximum degree
 	*/
-    int MaxDegree() const { return max_degree; }
+    nneg_int MaxDegree() const { return max_degree; }
     
     
     void VisitInEdges(node_id node, edge_visitor vis, param_type param);
@@ -212,7 +213,7 @@ public:
 * @returns Number of nodes
 */
 template <typename Node, typename Edge>
-inline int ARGraph<Node, Edge>::NodeCount() const
+inline nneg_int ARGraph<Node, Edge>::NodeCount() const
 {
     return n;
 }
@@ -526,16 +527,16 @@ template <typename Node, typename Edge>
 ARGraph<Node, Edge>::ARGraph(ARGLoader<Node, Edge> *loader)
 {
     n = loader->NodeCount();
-    vector<int> in_node_count(n,0);
+    vector<nneg_int> in_node_count(n,0);
     max_deg_in = max_deg_out = max_degree = 0;
     
-    int i, j;
+    nneg_int i, j;
     for(i=0; i<n; i++)
         attr.push_back(loader->GetNodeAttr(i));
     
     for(i=0; i<n; i++)
     {
-        int k=loader->OutEdgeCount(i);
+        nneg_int k=loader->OutEdgeCount(i);
         
         if (k > max_deg_out)
             max_deg_out = k;
@@ -555,7 +556,7 @@ ARGraph<Node, Edge>::ARGraph(ARGLoader<Node, Edge> *loader)
     
     for(i=0; i<n; i++)
     {
-        int k = in_node_count[i];
+        nneg_int k = in_node_count[i];
         
         if (k > max_deg_in)
             max_deg_in = k;
@@ -565,7 +566,7 @@ ARGraph<Node, Edge>::ARGraph(ARGLoader<Node, Edge> *loader)
         in.push_back(nv);
         in_attr.push_back(eav);
         
-        int l=0;
+        nneg_int l=0;
         for(j=0; j<n; j++)
         {
             if (HasEdge(j,i))
@@ -580,7 +581,7 @@ ARGraph<Node, Edge>::ARGraph(ARGLoader<Node, Edge> *loader)
     }
     
     for(i = 0; i < n; i++){
-        int count = in_node_count[i] + loader->OutEdgeCount(i);
+        nneg_int count = in_node_count[i] + loader->OutEdgeCount(i);
         if(count > max_degree){
             max_degree = count;
         }

@@ -53,16 +53,16 @@ private:
   bool used;
   
   //Size of each graph
-  int n1, n2;
+  nneg_int n1, n2;
   
   node_id *order;     //Order to traverse node on the first graph
   
   //CORE SET SIZES
-  int core_len;       //Current lenght of the core set
-  int orig_core_len;  //Core set lenght of the previous state
+  nneg_int core_len;       //Current lenght of the core set
+  nneg_int orig_core_len;  //Core set lenght of the previous state
   int *core_len_c;    //Core set lenght for each class
   
-  int added_node1;    //Last added node
+  nneg_int added_node1;    //Last added node
   
   node_dir_t* dir;        //Node coming set. Direction into the terminal set.
   node_id* predecessors;  //Previous node in the ordered sequence connected to a node
@@ -92,7 +92,7 @@ private:
   
   //Vector of sets used for searching the successors
   //Each class has its set
-  int last_candidate_index;
+  nneg_int last_candidate_index;
   
   /* Structures for classes */
   int *class_1;       //Classes for nodes of the first graph
@@ -205,7 +205,7 @@ VF3SubState<Node1,Node2,Edge1,Edge2,NodeComparisonFunctor,EdgeComparisonFunctor>
   predecessors = new node_id[n1];
   share_count = new long;
   
-  int i;
+  nneg_int i;
   for(i=0; i<=n1; i++)
     {
     if(i<n1){
@@ -325,7 +325,7 @@ VF3SubState<Node1,Node2,Edge1,Edge2,NodeComparisonFunctor,EdgeComparisonFunctor>
       delete [] termout1;
       delete [] new1;
       
-      for(int i = 0; i <= n1; i++){
+      for(nneg_int i = 0; i <= n1; i++){
         delete [] t1both_len_c[i];
         delete [] t1in_len_c[i];
         delete [] t1out_len_c[i];
@@ -881,7 +881,7 @@ typename Edge1, typename Edge2,
 typename NodeComparisonFunctor, typename EdgeComparisonFunctor>
 void VF3SubState<Node1,Node2,Edge1,Edge2,NodeComparisonFunctor,EdgeComparisonFunctor>::GetCoreSet(node_id c1[], node_id c2[])
 {
-  int i,j;
+  nneg_int i,j;
   for (i=0,j=0; i<n1; i++)
     if (core_1[i] != NULL_NODE)
       { c1[j]=i;

@@ -31,9 +31,9 @@ class ARGEdit: public ARGLoader<Node,Edge>
       ~ARGEdit();
 
       /* Redefined ARGLoader methods */
-      virtual int NodeCount();
+      virtual nneg_int NodeCount();
       virtual Node GetNodeAttr(node_id node);
-      virtual int OutEdgeCount(node_id node);
+      virtual nneg_int OutEdgeCount(node_id node);
       virtual node_id GetOutEdge(node_id node, int i, Edge *pattr);
 
       /* Graph edit operations */
@@ -43,7 +43,7 @@ class ARGEdit: public ARGLoader<Node,Edge>
       void DeleteEdge(node_id n1, node_id n2);
 
     protected:
-      int count; /**<Number of nodes */
+      nneg_int count; /**<Number of nodes */
 
 	/**
 	* @brief Structure of an edge used from the ARGEdit.
@@ -63,7 +63,7 @@ class ARGEdit: public ARGLoader<Node,Edge>
 	*/
       struct nNode 
         { node_id id;	/**<Node id */
-          int count;	/**<Number of edges out going from the node */
+          nneg_int count;	/**<Number of edges out going from the node */
           Node attr;	/**<Attribute of the node */
           nNode *next;	/**<Next node structure of the list*/
           eNode *edges;	/**<List of out going edges of the node */
@@ -164,7 +164,7 @@ ARGEdit<Node, Edge>::~ARGEdit()
 * @returns Number of loaded nodes 
 */
 template<typename Node, typename Edge>
-int ARGEdit<Node, Edge>::NodeCount()
+nneg_int ARGEdit<Node, Edge>::NodeCount()
 {
   return count;
 }
@@ -195,7 +195,7 @@ Node ARGEdit<Node, Edge>::GetNodeAttr(node_id id)
 * @returns Number of edges coming out from the node. 
 */
 template<typename Node, typename Edge>
-int ARGEdit<Node, Edge>::OutEdgeCount(node_id id)
+nneg_int ARGEdit<Node, Edge>::OutEdgeCount(node_id id)
 { nNode *n=nodes;
   
   if (lastNode!=NULL && lastNode->id <= id)
