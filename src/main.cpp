@@ -87,6 +87,7 @@ int main(int argc, char** argv)
   int n = 0;
   //int sols = 0;
   int rep = 0;
+  double timeConstruct = 0;
   double timeAll = 0;
   double timeFirst = 0;  
   //unsigned long firstSolTicks = 0;
@@ -131,6 +132,7 @@ int main(int argc, char** argv)
   std::vector<int> class_targ = classifier.GetClasses();
 
   ticks = clock();
+  timeConstruct = (double)(ticks) / CLOCKS_PER_SEC;
   do {
 	  rep++;
     vis_data.solutions = 0;
@@ -156,6 +158,7 @@ int main(int argc, char** argv)
     timeFirst = ((double)(vis_data.first_solution_time - ticksFirst) / CLOCKS_PER_SEC);
   } while (clock() - ticks < CLOCKS_PER_SEC*limit);
 	timeAll = ((double)(clock() - ticks) / CLOCKS_PER_SEC / rep);
+	// timeAll is just the average matching time, not include index time
   if(vis_data.solutions<=0)
   {
         timeFirst = timeAll;
@@ -165,7 +168,13 @@ int main(int argc, char** argv)
        timeFirst /= rep;
   }
   // Print number of solutions, time for all solutions, time for first solution.	
-	std::cout<<vis_data.solutions<<" "<<timeAll<<" "<<timeFirst<<std::endl;
+	//std::cout<<vis_data.solutions<<" "<<timeAll<<" "<<timeFirst<<std::endl;
+  // name,query,data,solutions,construct_cost,matching_cost,total_cost,first_cost
+  double time_matching = timeAll;
+  double time_total = timeAll+timeConstruct;
+	std::cout<<"VF3,"<<pattern<<","<<target<<","<<vis_data.solutions<<","
+	        <<timeConstruct<<","<<time_matching<<","<< time_total
+	        <<","<<timeFirst<<std::endl;
 
   return 0;
 }
