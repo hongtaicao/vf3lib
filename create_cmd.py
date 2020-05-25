@@ -8,7 +8,7 @@ _doc__ = 'create dataset and cmd for VF3'
 
 
 import sys
-sys.path.insert(0, '../motif_adj/')
+sys.path.insert(0, '../motif_adjacency/')
 
 from datetime import datetime
 
